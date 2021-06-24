@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
+import { OrdenCompraComponent } from './components/orden-compra/orden-compra.component';
 
 @NgModule({
   declarations: [
