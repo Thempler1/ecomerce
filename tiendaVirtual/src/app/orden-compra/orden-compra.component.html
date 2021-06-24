@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">MasterKeys ⚿ TiendaVirtual</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="">Productos</a>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="" tabindex="-1" aria-disabled="true">Group buy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="" tabindex="-1" aria-disabled="true">Preguntas
+                        frecuentes</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-info" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Content -->
+
+<div class="container" style="min-height:80vh">
+    <div class="row">
+        <div class="col-lg-3 col-sm-5">
+            <form class="form-control form" [formGroup]="formularioContacto" (ngSubmit)="enviar()">
+                <div class="input-group mb-3">
+                    <p>
+                        Código:<input class="form-control" type="text" formControlName="codigo" placeholder="A00" />
+                    </p>
+                </div>
+                <div class="input-group mb-3">
+                    <p>
+                        Nombre:<input class="form-control" type="text" formControlName="nombre"
+                            placeholder="Nombre del producto" />
+                    </p>
+                </div>
+                <div class="input-group mb-3">
+                    <p>
+                        Descripción:<textarea class="form-control" formControlName="descripcion" cols="22" rows="4"
+                            placeholder="Descripción del producto."></textarea>
+                    </p>
+                </div>
+                <div class="input-group mb-3">
+                    <p>
+                        Precio:<input class="form-control" type="number" formControlName="precio" placeholder="0" />
+                    </p>
+                </div>
+                <div class="input-group mb-3">
+                    <p>
+                        Cantidad:<input class="form-control" type="number" formControlName="cantidad" placeholder="0" />
+                    </p>
+                </div>
+                <div>
+                    <button class="btn btn-success" type="submit">Enviar</button>
+                    <button class="btn btn-warning" type="reset" (click)="limpiar()">Borrar</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-7 col-md-12 order">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ORDEN DE COMPRA</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Detalle de productos:</h6>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Acciones</th>
+
+                        </thead>
+                        <tbody *ngFor="let product of products; index as i" [attr.data-index]="i">
+                            <tr scope="row">
+                                <td>{{ product.codigo }}</td>
+                                <td>{{ product.nombre }}</td>
+                                <td>{{ product.descripcion }}</td>
+                                <td>{{ product.cantidad }}</td>
+                                <td>{{ product.precio }}</td>
+                                <td><button class="btn btn-warning" (click)="editar(i)">✍</button>
+                                    <button class="btn btn-danger" (click)="delete(i)">🗑</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <p class="card-text">SUBTOTAL: ${{subtotal}}</p>
+                    <p class="card-text">IVA 19%: ${{iva}}</p>
+                    <p class="card-text">TOTAL A PAGAR: ${{total}}</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="h-zigzag"></div><br />
+        </div>
+    </div>
+</div>
+
+<!-- Content end -->
+<footer class="footer text-white bg-dark">
+    <div class="row m-0 footer-content">
+        <div class="col">
+            <h5>MasterKeys</h5>
+            La mejor calidad en productos.
+        </div>
+        <div class="col">
+            Navegar
+            <hr>
+            <ul>
+                <li>Productos</li>
+                <li>Group buy</li>
+                <li>Contacto</li>
+            </ul>
+        </div>
+        <div class="col">
+            Sobre nosotros
+            <hr>
+            Conoce más en github @Thempler1.
+        </div>
+    </div>
+</footer>
