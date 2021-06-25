@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-orden-compra',
   templateUrl: './orden-compra.component.html',
@@ -7,75 +7,47 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class OrdenCompraComponent {
 
+  public productList: any = null;
+
+  constructor(private productosService: ProductService) {}
+
+  ngOnInit(){
+    this.productList = this.productosService.getProducts();
+  }
+
+  public chart: any = [];
+
   public products: any = [];
-  public editing = false;
-  public editingIndex!: number;
   public subtotal:number = 0;
   public iva: number = 0;
   public total: number = 0;
 
-
-  formularioContacto = new FormGroup({
-    codigo: new FormControl(null),
-    nombre: new FormControl(null),
-    descripcion: new FormControl(null),
-    precio: new FormControl(null),
-    cantidad: new FormControl(null),
-  })
-
-  public enviar() {
-
-    // validate empty fields
-    if(
-      this.formularioContacto.value.codigo === null || 
-      this.formularioContacto.value.nombe === null ||
-      this.formularioContacto.value.descripcion === null ||
-      this.formularioContacto.value.precio === null ||
-      this.formularioContacto.value.cantidad === null ||
-      this.formularioContacto.value.codigo === '' || 
-      this.formularioContacto.value.nombe === '' ||
-      this.formularioContacto.value.descripcion === '' ||
-      this.formularioContacto.value.precio === '' ||
-      this.formularioContacto.value.cantidad === ''
-      ){
-        alert('Ingrese valore validos.');
-      return;
-    }
-
-    if (this.editing) {
-      this.products[this.editingIndex] = {
-        codigo: this.formularioContacto.value.codigo,
-        nombre: this.formularioContacto.value.nombre,
-        descripcion: this.formularioContacto.value.descripcion,
-        precio: this.formularioContacto.value.precio,
-        cantidad: this.formularioContacto.value.cantidad
-      };
+  public addToChart(index :number){
+    if (this.chart.length === 0) {
+      this.chart.push({product: this.productList[index], quantity:1});
     } else {
-      this.products.push({
-        codigo: this.formularioContacto.value.codigo,
-        nombre: this.formularioContacto.value.nombre,
-        descripcion: this.formularioContacto.value.descripcion,
-        precio: this.formularioContacto.value.precio,
-        cantidad: this.formularioContacto.value.cantidad
+      let duplicated = false;
+      this.chart.forEach((element: any) => {
+        if(element.product.id == this.productList[index].id) {
+          element.quantity++;
+          duplicated = true;
+        }
       });
+      if (!duplicated){
+        this.chart.push({product: this.productList[index], quantity:1});
+      }
     }
-    this.editing = false;
-    this.limpiar();
-    this.sumarItems();
+    console.log(this.chart);
   }
 
-  public editar(index: number) {
-    this.formularioContacto.setValue(this.products[index]);
-    this.editing = true;
-    this.editingIndex = index;
+  public enviar(index :number) {
+      this.products.push(this.productList[index]);
+      console.log(this.products);
   }
+
   public delete(index: number) {
     this.products.splice(index,1);
     this.sumarItems();
-  }
-
-  public limpiar() {
-    this.formularioContacto.setValue({codigo: null, nombre: null, descripcion: null, precio: null, cantidad: null});
   }
 
   public sumarItems(){

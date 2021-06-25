@@ -1,41 +1,31 @@
 <div class="container" style="min-height:80vh">
     <div class="row">
-        <div class="col-lg-3 col-sm-5">
-            <form class="form-control form" [formGroup]="formularioContacto" (ngSubmit)="enviar()">
-                <div class="input-group mb-3">
-                    <p>
-                        Código:<input class="form-control" type="text" formControlName="codigo" placeholder="A00" />
-                    </p>
+        <div class="col">
+            <div class="row row-cols-md-4">
+                <div *ngFor="let product of productList; index as i" class="col">
+                    <div class="card">
+                        <img src="{{product.image}}" class="card-img">
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <div class="info">
+                                <a class="btn btn-sm btn-secondary" data-bs-toggle="collapse" href="#collapse{{i}}"
+                                    role="button" aria-expanded="false">
+                                    Descripción
+                                </a>
+                                <div class="collapse" id="collapse{{i}}">
+                                    <p class="card-text">{{product.description}}</p>
+                                </div>
+                            </div>
+                            <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
+                            <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small>
+                            </p>
+                            <a class="btn btn-primary btn-xs" (click)="addToChart(i)">Agregar al carrito</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group mb-3">
-                    <p>
-                        Nombre:<input class="form-control" type="text" formControlName="nombre"
-                            placeholder="Nombre del producto" />
-                    </p>
-                </div>
-                <div class="input-group mb-3">
-                    <p>
-                        Descripción:<textarea class="form-control" formControlName="descripcion" cols="22" rows="4"
-                            placeholder="Descripción del producto."></textarea>
-                    </p>
-                </div>
-                <div class="input-group mb-3">
-                    <p>
-                        Precio:<input class="form-control" type="number" formControlName="precio" placeholder="0" />
-                    </p>
-                </div>
-                <div class="input-group mb-3">
-                    <p>
-                        Cantidad:<input class="form-control" type="number" formControlName="cantidad" placeholder="0" />
-                    </p>
-                </div>
-                <div>
-                    <button class="btn btn-success" type="submit">Enviar</button>
-                    <button class="btn btn-warning" type="reset" (click)="limpiar()">Borrar</button>
-                </div>
-            </form>
+            </div>
         </div>
-        <div class="col-lg-7 col-md-12 order">
+        <div class="col-lg-3 col-md-12 order">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">ORDEN DE COMPRA</h5>
@@ -43,24 +33,12 @@
                     <hr>
                     <table class="table">
                         <thead>
-                            <th scope="col">Código</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Acciones</th>
-
                         </thead>
-                        <tbody *ngFor="let product of products; index as i" [attr.data-index]="i">
-                            <tr scope="row">
-                                <td>{{ product.codigo }}</td>
-                                <td>{{ product.nombre }}</td>
-                                <td>{{ product.descripcion }}</td>
-                                <td>{{ product.cantidad }}</td>
-                                <td>{{ product.precio }}</td>
-                                <td><button class="btn btn-warning" (click)="editar(i)">✍</button>
-                                    <button class="btn btn-danger" (click)="delete(i)">🗑</button>
-                                </td>
+                        <tbody>
+                            <tr scope="row"  *ngFor="let item of chart; index as i" [attr.data-index]="i">
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }}</td>
                             </tr>
                         </tbody>
                     </table>
