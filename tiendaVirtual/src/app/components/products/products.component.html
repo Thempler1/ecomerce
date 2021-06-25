@@ -25,33 +25,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-12 order">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">ORDEN DE COMPRA</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Detalle de productos:</h6>
-                    <hr>
-                    <table class="table">
-                        <thead>
-                            <th scope="col">Nombre</th>
-                        </thead>
-                        <tbody>
-                            <tr scope="row"  *ngFor="let item of cart; index as i" [attr.data-index]="i">
-                                <td>{{ item.product.name }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <button (click)="deleteFromCart(i)"></button>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <!-- <p class="card-text">SUBTOTAL: ${{subtotal}}</p>
-                    <p class="card-text">IVA 19%: ${{iva}}</p>
-                    <p class="card-text">TOTAL A PAGAR: ${{total}}</p> -->
-                    <p class="card-text">Cantidad de productos: {{productQuantity}}</p>
-                    <hr>
-                </div>
-            </div>
-            <!-- <div class="h-zigzag"></div><br /> -->
-        </div>
     </div>
 </div>
