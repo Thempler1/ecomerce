@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChartService } from 'src/app/services/chart.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Observable } from 'rxjs';
 @Component({
@@ -9,22 +9,22 @@ import { Observable } from 'rxjs';
 })
 export class ProductsComponent {
 
-  public chart$: Observable<any> | undefined ;
+  public cart$: Observable<any> | undefined ;
   public productQuantity$: Observable<number> | undefined;
   public productList: any = null;
-  public chart: any = null;
+  public cart: any = null;
   public productQuantity: number = 0;
   
 
-  constructor(private productosService: ProductService, private chartService: ChartService) {}
+  constructor(private productosService: ProductService, private cartService: CartService) {}
 
   ngOnInit(){
     this.productList = this.productosService.getProducts();
     
-    this.chart$ = this.chartService.getChart$();
-    this.chart$.subscribe(any => this.chart = any);
+    this.cart$ = this.cartService.getCart$();
+    this.cart$.subscribe(any => this.cart = any);
 
-    this.productQuantity$ = this.chartService.getQuantity$();
+    this.productQuantity$ = this.cartService.getQuantity$();
     this.productQuantity$.subscribe(any => this.productQuantity = any)
   }
 
@@ -33,11 +33,11 @@ export class ProductsComponent {
   public total: number = 0;
 
 
-  public addToChart(index: number){
-    this.chartService.addToProductChart(this.productList[index]);
+  public addToCart(index: number){
+    this.cartService.addToProductCart(this.productList[index]);
   }
 
-  public deleteFromChart(index: number) {
-    this.chartService.deleteProductChart(index);
+  public deleteFromCart(index: number) {
+    this.cartService.deleteProductCart(index);
   }
 }

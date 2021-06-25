@@ -19,7 +19,7 @@
                             <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
                             <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small>
                             </p>
-                            <a class="btn btn-primary btn-xs" (click)="addToChart(i)">Agregar al carrito</a>
+                            <a class="btn btn-primary btn-xs" (click)="addToCart(i)">Agregar al carrito</a>
                         </div>
                     </div>
                 </div>
@@ -36,10 +36,10 @@
                             <th scope="col">Nombre</th>
                         </thead>
                         <tbody>
-                            <tr scope="row"  *ngFor="let item of chart; index as i" [attr.data-index]="i">
+                            <tr scope="row"  *ngFor="let item of cart; index as i" [attr.data-index]="i">
                                 <td>{{ item.product.name }}</td>
                                 <td>{{ item.quantity }}</td>
-                                <button (click)="deleteFromChart(i)"></button>
+                                <button (click)="deleteFromCart(i)"></button>
                             </tr>
                         </tbody>
                     </table>

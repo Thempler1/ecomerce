@@ -5,50 +5,50 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ChartService {
+export class CartService {
 
-  public sesionChart : any = [];
-  private sesionChart$ = new Subject<any>();
+  public sesionCart : any = [];
+  private sesionCart$ = new Subject<any>();
   public productQuantity = 0;
   private productQuantity$ = new Subject<any>();
 
   constructor() { }
 
-  public addToProductChart(toAdd: any) {
-    if(this.sesionChart.length === 0) {
-      this.sesionChart.push({product: toAdd, quantity: 1})
+  public addToProductCart(toAdd: any) {
+    if(this.sesionCart.length === 0) {
+      this.sesionCart.push({product: toAdd, quantity: 1})
     } else {
       let duplicated = false;
-      this.sesionChart.forEach((element : any) => {
+      this.sesionCart.forEach((element : any) => {
         if (element.product.id == toAdd.id) {
           element. quantity++;
           duplicated = true;
         }
       });
       if (!duplicated) {
-        this.sesionChart.push({product: toAdd, quantity: 1})
+        this.sesionCart.push({product: toAdd, quantity: 1})
       }
     }
     this.productQuantity++
-    this.sesionChart$.next(this.sesionChart);
+    this.sesionCart$.next(this.sesionCart);
     this.productQuantity$.next(this.productQuantity);
   }
 
-  public getChart$(): Observable<any> {
-    return this.sesionChart$.asObservable();
+  public getCart$(): Observable<any> {
+    return this.sesionCart$.asObservable();
   }
 
   public getQuantity$(): Observable<number> {
     return this.productQuantity$.asObservable();
   }
 
-  public deleteProductChart(index: number) {
-    this.sesionChart.splice(index,1);
+  public deleteProductCart(index: number) {
+    this.sesionCart.splice(index,1);
     this.productQuantity = 0;
-    this.sesionChart.forEach((element: { quantity: number; }) => {
+    this.sesionCart.forEach((element: { quantity: number; }) => {
       this.productQuantity = this.productQuantity + element.quantity
     });
-    this.sesionChart$.next(this.sesionChart);
+    this.sesionCart$.next(this.sesionCart);
     this.productQuantity$.next(this.productQuantity);
   }
 
@@ -57,7 +57,7 @@ export class ChartService {
   //   this.subtotal = 0;
   //   this.iva = 0;
   //   this.total = 0;
-  //   this.chart.forEach((element: any) => {
+  //   this.cart.forEach((element: any) => {
   //     this.subtotal = this.subtotal + element.precio;
   //     this.iva = this.subtotal*0.19;
   //     this.total = this.subtotal + Math.round(this.iva);
