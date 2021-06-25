@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ChartService } from 'src/app/services/chart.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -7,57 +9,35 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent {
 
+  public chart$: Observable<any> | undefined ;
+  public productQuantity$: Observable<number> | undefined;
   public productList: any = null;
+  public chart: any = null;
+  public productQuantity: number = 0;
+  
 
-  constructor(private productosService: ProductService) {}
+  constructor(private productosService: ProductService, private chartService: ChartService) {}
 
   ngOnInit(){
     this.productList = this.productosService.getProducts();
+    
+    this.chart$ = this.chartService.getChart$();
+    this.chart$.subscribe(any => this.chart = any);
+
+    this.productQuantity$ = this.chartService.getQuantity$();
+    this.productQuantity$.subscribe(any => this.productQuantity = any)
   }
 
-  public chart: any = [];
-
-  public products: any = [];
   public subtotal:number = 0;
   public iva: number = 0;
   public total: number = 0;
 
-  public addToChart(index :number){
-    if (this.chart.length === 0) {
-      this.chart.push({product: this.productList[index], quantity:1});
-    } else {
-      let duplicated = false;
-      this.chart.forEach((element: any) => {
-        if(element.product.id == this.productList[index].id) {
-          element.quantity++;
-          duplicated = true;
-        }
-      });
-      if (!duplicated){
-        this.chart.push({product: this.productList[index], quantity:1});
-      }
-    }
-    console.log(this.chart);
+
+  public addToChart(index: number){
+    this.chartService.addToProductChart(this.productList[index]);
   }
 
-  public enviar(index :number) {
-      this.products.push(this.productList[index]);
-      console.log(this.products);
-  }
-
-  public delete(index: number) {
-    this.products.splice(index,1);
-    this.sumarItems();
-  }
-
-  public sumarItems(){
-    this.subtotal = 0;
-    this.iva = 0;
-    this.total = 0;
-    this.products.forEach((element: any) => {
-      this.subtotal = this.subtotal + element.precio;
-      this.iva = this.subtotal*0.19;
-      this.total = this.subtotal + Math.round(this.iva);
-    });
+  public deleteFromChart(index: number) {
+    this.chartService.deleteProductChart(index);
   }
 }

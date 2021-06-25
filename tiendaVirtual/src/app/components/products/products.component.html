@@ -39,17 +39,19 @@
                             <tr scope="row"  *ngFor="let item of chart; index as i" [attr.data-index]="i">
                                 <td>{{ item.product.name }}</td>
                                 <td>{{ item.quantity }}</td>
+                                <button (click)="deleteFromChart(i)"></button>
                             </tr>
                         </tbody>
                     </table>
                     <hr>
-                    <p class="card-text">SUBTOTAL: ${{subtotal}}</p>
+                    <!-- <p class="card-text">SUBTOTAL: ${{subtotal}}</p>
                     <p class="card-text">IVA 19%: ${{iva}}</p>
-                    <p class="card-text">TOTAL A PAGAR: ${{total}}</p>
+                    <p class="card-text">TOTAL A PAGAR: ${{total}}</p> -->
+                    <p class="card-text">Cantidad de productos: {{productQuantity}}</p>
                     <hr>
                 </div>
             </div>
-            <div class="h-zigzag"></div><br />
+            <!-- <div class="h-zigzag"></div><br /> -->
         </div>
     </div>
 </div>
