@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 @Component({
-  selector: 'app-orden-compra',
-  templateUrl: './orden-compra.component.html',
-  styleUrls: ['./orden-compra.component.css']
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
-export class OrdenCompraComponent {
+export class ProductsComponent {
 
   public productList: any = null;
 
