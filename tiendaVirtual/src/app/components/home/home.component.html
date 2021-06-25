@@ -42,16 +42,14 @@
         <div class="text-white">
             <h2>Los más vistos</h2>
         </div>
-        <div class="row row-cols-md-8">
-            <div *ngFor="let product of productList" class="col">
-                <div class="card">
-                    <img src="{{product.image}}" class="card-img">
+        <div class="row">
+            <div *ngFor="let product of productList" class="col-sm-6 col-lg-3 mb-3">
+                <div class="card" routerLink="/products">
+                    <div class="imager" style="background-image: url({{product.image}})"></div>
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
-                        <p class="card-text">{{product.description}}</p>
                         <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
                         <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small></p>
-                        <a class="btn btn-primary btn-xs" routerLink="/products">Comprar</a>
                     </div>
                 </div>
             </div>

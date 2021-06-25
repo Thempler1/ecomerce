@@ -8,18 +8,12 @@
                         <div class="imager" style="background-image: url({{product.image}})"></div>
                         <div class="card-body">
                             <h5 class="card-title">{{product.name}}</h5>
-                            <div class="info">
-                                <a class="btn btn-sm btn-secondary" data-bs-toggle="collapse" href="#collapse{{i}}"
-                                    role="button" aria-expanded="false">
-                                    Descripción:
-                                </a>
-                                <div class="collapse" id="collapse{{i}}">
-                                    <p class="card-text">{{product.description}}</p>
-                                </div>
-                            </div>
+                            <p class="card-text">{{product.description}}</p>
                             <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
                             <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small>
                             </p>
+                        </div>
+                        <div class="text-center card-footer">
                             <a class="buy btn btn-primary btn-xs" (click)="addToCart(i)">Agregar al carrito</a>
                         </div>
                     </div>

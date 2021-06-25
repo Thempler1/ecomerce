@@ -1,0 +1,19 @@
+.card{
+    height: 100%;
+} 
+
+.card:hover{
+    cursor: pointer;
+}
+
+.buy {
+    margin-top: auto;
+}
+
+.imager {
+    width: auto;
+    height: 250px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+}
