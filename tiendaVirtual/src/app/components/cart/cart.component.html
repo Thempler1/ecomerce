@@ -10,31 +10,33 @@
                 <h3>Tu carrito está vacío.</h3>
             </div>
             
-            <table class="table">
-                <thead>
-                    <th scope="col"></th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Acciones</th>
-                </thead>
-                <tbody>
-                    <tr scope="row" *ngFor="let item of cart; index as i" [attr.data-index]="i">
-                        <td class="w-25">
-                            <img src="{{item.product.image}}" class="img-fluid img-thumbnail" alt="Sheep">
-                        </td>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.product.price }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.quantity * item.product.price }}</td>
-                        <td><button class="btn btn-warning" (click)="deleteFromCart(i)">Quitar</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Subtotal: {{subtotal | currency:'CLP'}}</p>
-            <p>IVA 19%: {{iva | currency:'CLP'}}</p>
-            <p>Total: {{total | currency:'CLP'}}</p>
+            <div *ngIf="productQuantity>0">
+                <table class="table">
+                    <thead>
+                        <th scope="col"></th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Acciones</th>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" *ngFor="let item of cart; index as i" [attr.data-index]="i">
+                            <td class="w-25">
+                                <img src="{{item.product.image}}" class="img-fluid img-thumbnail" alt="Sheep">
+                            </td>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.quantity * item.product.price }}</td>
+                            <td><button class="btn btn-warning" (click)="deleteFromCart(i)">Quitar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Subtotal: {{subtotal | currency:'CLP'}}</p>
+                <p>IVA 19%: {{iva | currency:'CLP'}}</p>
+                <p>Total: {{total | currency:'CLP'}}</p>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
