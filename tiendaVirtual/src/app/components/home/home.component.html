@@ -42,18 +42,59 @@
         <div class="text-white">
             <h2>Los más vistos</h2>
         </div>
-        <div class="row">
-            <div *ngFor="let product of productList" class="col-sm-6 col-lg-3 mb-3">
-                <div class="card" routerLink="/products">
-                    <div class="imager" style="background-image: url({{product.image}})"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{product.name}}</h5>
-                        <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
-                        <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small></p>
+
+        <!-- this carousel works like div paginated -->
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div *ngFor="let product of firsthalf" class="col-sm-6 col-lg-3 mb-3">
+                            <div class="card" routerLink="/products">
+                                <div class="imager" style="background-image: url({{product.image}})"></div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{product.name}}</h5>
+                                    <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
+                                    <p class="card-text"><small class="text-muted">{{product.price |
+                                            currency:'CLP'}}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div *ngFor="let product of secondhalf" class="col-sm-6 col-lg-3 mb-3">
+                            <div class="card" routerLink="/products">
+                                <div class="imager" style="background-image: url({{product.image}})"></div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{product.name}}</h5>
+                                    <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
+                                    <p class="card-text"><small class="text-muted">{{product.price |
+                                            currency:'CLP'}}</small></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div>
+            <ul class="pagination justify-content-center" style="margin:20px 0">
+                <li class="page-item">
+                    <a class="page-link" aria-disabled="true" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">Anterior</a>
+                </li>
+                <li class="page-item"><a class="page-link" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="0">1</a></li>
+                <li class="page-item"><a class="page-link" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="1">2</a></li>
+                <li class="page-item">
+                    <a class="page-link" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">Siguiente</a>
+                </li>
+            </ul>
+        </div>
+        <!-- end carousel of products -->
     </div>
     <br>
 </div>
