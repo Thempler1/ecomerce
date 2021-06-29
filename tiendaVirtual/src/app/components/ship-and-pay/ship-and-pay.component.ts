@@ -62,7 +62,7 @@ export class ShipAndPayComponent implements OnInit {
     this.iva = 0;
     this.total = 0;
     this.cart.forEach((element: any) => {
-      this.subtotal = this.subtotal + element.product.price;
+      this.subtotal = this.subtotal + element.product.price*element.quantity;
       this.iva = this.subtotal * 0.19;
       this.total = this.subtotal + Math.round(this.iva);
     });
@@ -103,7 +103,6 @@ export class ShipAndPayComponent implements OnInit {
 
   public payout() {
     if (this.shipSuccess && this.paymentSuccess) {
-      alert('Pago exitoso');
     } else {
       alert('Debe validar los datos de envio y de pago');
     }
