@@ -1,14 +1,5 @@
-.form, .order {
+.row {
     margin: 20px 0px;
-}
-
-.footer {
-    font-size: 15px;
-    padding-top: 10px;
-}
-.footer-content {
-    margin-left: 10px;
-
 }
 
 button {
@@ -25,5 +16,4 @@ button {
     background-position: left bottom;
     background-repeat: repeat-x;
     background-size: 10px 10px;
- 
 }
