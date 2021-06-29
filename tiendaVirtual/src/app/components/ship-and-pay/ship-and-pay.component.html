@@ -1,1 +1,264 @@
-<p>ship-and-pay works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- start accordion -->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Datos de Envío
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form [formGroup]="shipForm" (ngSubmit)="onSubmitShip()">
+                                <div class="form-row">
+                                    <div class="form-group col-8">
+                                        <label>País</label>
+                                        <input type="text" formControlName="country" class="form-control"
+                                            [ngClass]="{ 'is-invalid': shipSubmitted && f.country.errors }" />
+                                        <div *ngIf="shipSubmitted && f.country.errors" class="invalid-feedback">
+                                            <div *ngIf="f.country.errors.required">País requerido</div>
+                                            <div *ngIf="f.country.errors.minlength">Debe tener 4 o más caracteres</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Dirección</label>
+                                        <input type="text" formControlName="address" class="form-control"
+                                            [ngClass]="{ 'is-invalid': shipSubmitted && f.address.errors }" />
+                                        <div *ngIf="shipSubmitted && f.address.errors" class="invalid-feedback">
+                                            <div *ngIf="f.address.errors.required">Dirección requerida</div>
+                                            <div *ngIf="f.address.errors.minlength">Debe tener 6 o más caracteres</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Ciudad</label>
+                                        <input type="text" formControlName="city" class="form-control"
+                                            [ngClass]="{ 'is-invalid': shipSubmitted && f.city.errors }" />
+                                        <div *ngIf="shipSubmitted && f.city.errors" class="invalid-feedback">
+                                            <div *ngIf="f.city.errors.required">Ciudad requerida</div>
+                                            <div *ngIf="f.city.errors.minlength">Debe tener 3 o más caracteres</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Región</label>
+                                        <input type="text" formControlName="state" class="form-control"
+                                            [ngClass]="{ 'is-invalid': shipSubmitted && f.state.errors }" />
+                                        <div *ngIf="shipSubmitted && f.state.errors" class="invalid-feedback">
+                                            <div *ngIf="f.state.errors.required">Región requerida</div>
+                                            <div *ngIf="f.state.errors.minlength">Debe tener 3 o más caracteres</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Código postal</label>
+                                        <input type="text" formControlName="zipcode" class="form-control"
+                                            [ngClass]="{ 'is-invalid': shipSubmitted && f.zipcode.errors }" />
+                                        <div *ngIf="shipSubmitted && f.zipcode.errors" class="invalid-feedback">
+                                            <div *ngIf="f.zipcode.errors.required">Código postal requerido</div>
+                                            <div *ngIf="f.zipcode.errors.minlength">Debe tener 6 o más caracteres</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="text-center">
+                                    <button class="btn btn-primary mr-1">Validar</button>
+                                    <button class="btn btn-secondary" type="reset"
+                                        (click)="onResetShip()">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Datos de Pago
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form [formGroup]="paymentForm" (ngSubmit)="onSubmitPayment()">
+                                <div class="form-row">
+                                    <div class="form-group col-8">
+                                        <label>Tipo de tarjeta</label>
+                                        <select formControlName="cardType" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.cardType.errors }">
+                                            <option value="visa">Visa</option>
+                                            <option value="mastercard">Mastercard</option>
+                                        </select>
+                                        <div *ngIf="paymentSubmitted && p.cardType.errors" class="invalid-feedback">
+                                            <div *ngIf="p.cardType.errors.required">Tipo de tarjeta requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Nombre en la tarjeta</label>
+                                        <input type="text" formControlName="name" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.name.errors }" />
+                                        <div *ngIf="paymentSubmitted && p.name.errors" class="invalid-feedback">
+                                            <div *ngIf="p.name.errors.required">Nombre requerido</div>
+                                            <div *ngIf="p.name.errors.minlength">Debe tener entre 6 y 50 caracteres
+                                            </div>
+                                            <div *ngIf="p.name.errors.maxlength">Debe tener entre 6 y 50 caracteres
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Número de tarjeta</label>
+                                        <input type="text" formControlName="cardNumber" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.cardNumber.errors }" />
+                                        <div *ngIf="paymentSubmitted && p.cardNumber.errors" class="invalid-feedback">
+                                            <div *ngIf="p.cardNumber.errors.required">Número de tarjeta requerido</div>
+                                            <div *ngIf="p.cardNumber.errors.minlength">Debe tener 16 dígitos</div>
+                                            <div *ngIf="p.cardNumber.errors.maxlength">Debe tener 16 dígitos</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Código de seguridad CCV</label>
+                                        <input type="text" formControlName="ccv" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.ccv.errors }" />
+                                        <div *ngIf="paymentSubmitted && p.ccv.errors" class="invalid-feedback">
+                                            <div *ngIf="p.ccv.errors.required">Código de seguridad requerido</div>
+                                            <div *ngIf="p.ccv.errors.minlength">Debe tener 3 dígitos</div>
+                                            <div *ngIf="p.ccv.errors.maxlength">Debe tener 3 dígitos</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Mes de expiración</label>
+                                        <select formControlName="expMonth" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.expMonth.errors }">
+                                            <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]; index as i"
+                                                [value]='month'>{{month}}</option>
+                                        </select>
+                                        <div *ngIf="paymentSubmitted && p.expMonth.errors" class="invalid-feedback">
+                                            <div *ngIf="p.expMonth.errors.required">Mes de expeiración requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-8">
+                                        <label>Año de expiración</label>
+                                        <select formControlName="expYear" class="form-control"
+                                            [ngClass]="{ 'is-invalid': paymentSubmitted && p.expYear.errors }">
+                                            <option
+                                                *ngFor="let month of [2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]; index as i"
+                                                [value]='month'>{{month}}</option>
+                                        </select>
+                                        <div *ngIf="paymentSubmitted && p.expYear.errors" class="invalid-feedback">
+                                            <div *ngIf="p.expYear.errors.required">Mes de expeiración requerido</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="text-center">
+                                    <button class="btn btn-primary mr-1">Validar</button>
+                                    <button class="btn btn-secondary" type="reset"
+                                        (click)="onResetPayment()">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end accordion -->
+        </div>
+        <div class="col-lg-6 order">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ORDEN DE COMPRA</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Detalle de productos:</h6>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" *ngFor="let item of cart; index as i" [attr.data-index]="i">
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.product.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.quantity * item.product.price }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Subtotal: {{subtotal | currency:'CLP'}}</p>
+                    <p>IVA 19%: {{iva | currency:'CLP'}}</p>
+                    <p>Total: {{total | currency:'CLP'}}</p>
+                    <hr>
+                </div>
+                <div class="card final">
+                    <div class="card-body">
+                        <div class="text-center">
+                            Continuar con el pago 
+                            <button class="btn btn-success" *ngIf="shipSuccess && paymentSuccess" (click)="payout()" data-bs-target="#exampleModal2" data-bs-toggle="modal">Pagar</button>
+                            <button class="btn btn-secondary" *ngIf="!shipSuccess || !paymentSuccess" (click)="payout()">Pagar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-zigzag"></div><br />
+        </div>
+    </div>
+    
+</div>
+
+<!-- Modal success -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">Resumen de la compra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Orden de Compra</h6>
+                <table class="table">
+                    <thead>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" *ngFor="let item of cart; index as i" [attr.data-index]="i">
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.quantity * item.product.price }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Subtotal: {{subtotal | currency:'CLP'}}</p>
+                <p>IVA 19%: {{iva | currency:'CLP'}}</p>
+                <p>Total: {{total | currency:'CLP'}}</p>
+                <hr>
+                <h6 >Datos de Envío</h6> 
+                <div *ngIf="shipSuccess">
+                    <p>País: {{shipData.country}}</p>
+                    <p>Dirección: {{shipData.address}}</p>
+                    <p>Ciudad: {{shipData.city}}</p>
+                    <p>Región: {{shipData.state}}</p>
+                    <p>Código postal: {{shipData.zipcode}}</p>
+                </div>
+                <hr>
+                <h6 >Datos de Pago</h6> 
+                <div *ngIf="paymentSuccess">
+                    <p>Tipo de Tarjeta: {{paymentData.cardType}}</p>
+                    <p>Nombre: {{paymentData.name}}</p>
+                    <p>Número de tarjeta: {{paymentData.cardNumber}}</p>
+                    <p>CCV: {{paymentData.ccv}}</p>
+                    <p>Mes de expiración: {{paymentData.expMonth}}</p>
+                    <p>Año de expiración: {{paymentData.expYear}}</p>
+                </div>
+                <hr>
+                <div class="alert alert-success" role="alert">
+                    Pago Exitoso!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
