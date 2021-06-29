@@ -35,7 +35,6 @@ export class CartComponent implements OnInit {
     this.cartService.deleteProductCart(index);
   }
 
-  //TODO: create method "sumarItems()"
   public resumeItems() {
     this.subtotal = 0;
     this.iva = 0;
