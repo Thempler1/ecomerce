@@ -1,8 +1,9 @@
-/* .footer {
-    font-size: 15px;
+
+
+.footer {
     padding-top: 10px;
 }
-.footer-content {
-    margin-left: 10px;
 
-} */
+li :hover{
+    cursor: pointer;
+}
