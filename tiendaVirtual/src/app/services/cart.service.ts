@@ -52,15 +52,7 @@ export class CartService {
     this.productQuantity$.next(this.productQuantity);
   }
 
-  // TODO: create method "sumarItems()"
-  // public sumarItems(){
-  //   this.subtotal = 0;
-  //   this.iva = 0;
-  //   this.total = 0;
-  //   this.cart.forEach((element: any) => {
-  //     this.subtotal = this.subtotal + element.precio;
-  //     this.iva = this.subtotal*0.19;
-  //     this.total = this.subtotal + Math.round(this.iva);
-  //   });
-  // }
+  public getCart() {
+    return this.sesionCart;
+  }
 }
