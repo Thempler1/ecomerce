@@ -1,8 +1,16 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col">
-            <h4 class="text-center text-white">Productos disponibles</h4><br>
-            <div class="row">
+            <h4 class="text-center text-white">Productos disponibles</h4>
+            <div class="col-sm-4">
+                <div class="input-group col-sm-4">
+                    <span class="input-group-text" id="basic-addon3">Buscar producto</span>
+                    <input type="text" class="form-control" id="inputText" aria-describedby="basic-addon3" placeholder="Nombre, tipo o palabra clave" [(ngModel)]="text"
+                    (keyup)="toFilter()">
+                </div>
+            </div>
+            <hr>
+            <div class="row" *ngIf="text === ''; else filter">
                 <div class="col-sm-6 col-lg-3 mb-3" *ngFor="let product of productList; index as i">
                     <div class="card">
                         <div class="imager" style="background-image: url({{product.image}})"></div>
@@ -20,5 +28,28 @@
                 </div>
             </div>
         </div>
+        <ng-template #filter>
+            <h6 class="text-white">Resultado de la bsuqueda: {{text}}</h6>
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 mb-3" *ngFor="let product of match; index as i">
+                    <div class="card">
+                        <div class="imager" style="background-image: url({{product.image}})"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="card-text">{{product.description}}</p>
+                            <p class="card-text">{{product.type}} - Pack de {{product.pack}} unidades.</p>
+                            <p class="card-text"><small class="text-muted">{{product.price | currency:'CLP'}}</small>
+                            </p>
+                        </div>
+                        <div class="text-center card-footer">
+                            <a class="buy btn btn-primary btn-xs" (click)="addToCartFilter(i)">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info text-center" *ngIf="match.length==0">
+                    <h5 class="text-white"> Producto no encontrado.</h5>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>
