@@ -11,8 +11,9 @@ export class LoginComponent implements OnInit {
 
   cUser = "user";
   cPwd = "user";
+  public alertUser!: string;
+  public showAlert: boolean = false;
 
-  alertUser!: string;
   constructor(private router: Router) { }
 
   user = new FormControl('');
@@ -22,20 +23,14 @@ export class LoginComponent implements OnInit {
   }
 
   validar(){
-    if(this.user.value == this.cUser){
+    if(this.user.value == this.cUser && this.pwd.value == this.cPwd){
       this.alertUser = "";
-    }
-    else{
-      this.alertUser = "Usuario o password incorrecto";
-    }
-    if(this.pwd.value == this.cPwd){
-      this.alertUser = "";
-    }
-    else{
-      this.alertUser = "Usuario o password incorrecto";
-    }
-    if(this.alertUser == ""){
+      this.showAlert = false;
       this.router.navigate(['home']);
+    }
+    else{
+      this.alertUser = "Usuario o password incorrecto";
+      this.showAlert = true;
     }
   }
 }
